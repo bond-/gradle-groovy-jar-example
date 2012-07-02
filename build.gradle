@@ -1,0 +1,22 @@
+apply plugin: 'groovy'
+apply plugin: 'application'
+version = '1.0'
+mainClassName='Test'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	groovy 'org.codehaus.groovy:groovy-all:2.0.0'
+	compile 'org.codehaus.gpars:gpars:0.12'
+}
+
+task uberjar(type: Jar) {
+    from files(sourceSets.main.output.classesDir)
+    from configurations.runtime.asFileTree.files.collect { zipTree(it) }
+
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+}

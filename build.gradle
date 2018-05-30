@@ -12,7 +12,7 @@ dependencies {
 	compile 'org.codehaus.gpars:gpars:0.12'
 }
 
-task uberjar(type: Jar,dependsOn:[':compileJava',':compileGroovy']) {
+task uberjar(type: Jar, dependsOn:compileGroovy) {
     from files(sourceSets.main.output.classesDir)
     from configurations.runtime.asFileTree.files.collect { zipTree(it) }
 
